@@ -18,14 +18,17 @@ typedef long long ll;
 #define checkbit(x,n) (x&(1LL<<n))
 #define setbit(x,n) (x=(x|(1LL<<n)))
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
+#define pow2(i) (1LL<<i)
 
 //#define DEBG
 
 #define debug(n)
 #define debugc(a)
+#define debugcc(a)
 #ifdef DEBG
 #define debug(n) cout<<__LINE__<<gp<<#n<<gp<<n<<endl;
 #define debugc(a) cout<<__LINE__<<gp<<#a<<gp<<'['<<gp;for(auto el:a){cout<<el<<gp;}cout<<']'<<endl;
+#define debugcc(a) cout<<__LINE__<<gp<<#a<<gp<<'['<<gp;for(auto el:a){cout<<'{'<<gp<<el.ff<<','<<el.ff<<gp<<'}'<<gp;}cout<<']'<<endl;
 #endif
 
 #define fastcin() ios_base::sync_with_stdio(false); cin.tie(NULL);
@@ -40,7 +43,7 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 1e5 + 7;
+const ll N = 2e5 + 7;
 
 
 //==============================CODE STARTS HERE==============================//
@@ -53,59 +56,34 @@ void preprocessing(){
 }
 
 void solve(){
-    int h,w,t;
-    cin>>h>>w>>t;
-    vvll mat(h+4, vll(w+4));
-    vvll matmin(h+4, vll(w+4));
-    ll hsh[N];
-    memset(hsh,0,sizeof(hsh));
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cin>>matmin[i][j];
-            mat[i][j] = inf;
+    int n;cin>>n;
+    vi a(n);
+    get_vector(a);
+    int state = 0;
+    vi ans;
+    ans.push_back(a[0]);
+    rep(i,1,n){
+        if(a[i]==a[i-1]){
+            continue;
+        }else if(a[i-1]>a[i]){
+            if(state == -1){
+                ans.pop_back();
+                ans.push_back(a[i]);
+            }else{
+                state = -1;
+                ans.push_back(a[i]);
+            }
+        }else{
+            if(state==1){
+                ans.pop_back();
+                ans.push_back(a[i]);
+            }else{
+                state=1;
+                ans.push_back(a[i]);
+            }
         }
     }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cout<<mat[i][j]<<gp;
-        }
-        cout<<endl;
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            ++hsh[mat[i][j]];
-        }
-        // cout<<endl;
-    }
-    ll ans = h*w;
-    rep(i,1,t+1){
-        ans-=hsh[i];
-        cout<<ans<<endl;
-    }
-   
-   
-    
-    
+    cout<<ans.size()<<endl;
 
 }
 
@@ -113,7 +91,7 @@ int main(){
     fastcin();
 
     int t=1;
-    // cin>>t;
+    cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

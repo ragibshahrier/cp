@@ -48,23 +48,20 @@ const ll M = 1e9 + 7;
 int n;
 vll c;
 vector<vll> dpp(100004+3, vll(2,-2));
-vll order;
+// vll order;
+vi vss;
+int mp[250005];
 
 void preprocessing(){
 
 }
 
 void revrs(int nn){
-    swap(order[nn], order[nn+n]);
+    vss[nn]*=-1;
 }
 
-// bool cmp(pair<string,int>sp1, pair<string,int>sp2){
-//     int x = min(sp1.ff.length(), sp2.ff.length());
-//     rep(i,0,)
-// }
 
-
-ll func(int nn, vector<string>& vs, int i){
+ll func(int nn, vector<int>& vs, int i){
     if(nn==n){
         return 0;
     }
@@ -90,11 +87,11 @@ ll func(int nn, vector<string>& vs, int i){
         // reverse(All(vs[nn+1]));
         revrs(nn+1);
         if(ans!=1e15)return dpp[nn][i]=ans;
-        return -1;
+        return dpp[nn][i]=-1;
     }
     debug(vs[nn])
     debug(vs[nn+1])
-    if(order[nn]<=order[nn+1]){
+    if(mp[vs[nn]+(n+2)]<=mp[vs[nn+1]+(n+2)]){
         debug(nn)
         debug(i)
         ll x = func(nn+1,vs,0);
@@ -102,14 +99,14 @@ ll func(int nn, vector<string>& vs, int i){
     }
     // reverse(All(vs[nn+1]));
     revrs(nn+1);
-    if(order[nn]<=order[nn+1]){
+    if(mp[vs[nn]+(n+2)]<=mp[vs[nn+1]+(n+2)]){
         ll x = func(nn+1,vs,1);
         if(x!=-1)ans = min(ans,x+c[nn]);
     }
     // reverse(All(vs[nn+1]));
     revrs(nn+1);
     if(ans!=1e15)return dpp[nn][i]=ans;
-    return -1;
+    return dpp[nn][i]=-1;
 }
 
 void solve(){
@@ -127,25 +124,39 @@ void solve(){
     rep(i,1,n+1){
         reverse(All(vs[i]));
         vsr.push_back({vs[i],-i});
-        reverse(All(vs[i]));
+        // reverse(All(vs[i]));
         
     }
     sort(All(vsr));
-    order.resize(2*n+1);
-    map<int,int>mp;
-    for(int i = 0; i<=2*n; i++){
-        mp[vsr[i].ss]=i;
-        debug(vsr[i].ff)
-        debug(i)
-    }
-    for(int i = 0; i<=2*n; i++){
-        if(vsr[i].ss>0){
-            order[vsr[i].ss]=mp[vsr[i].ss];
+    
+    mp[vsr[1].ss+(n+2)]=0;
+    int ii=0;
+    rep(i,2, 2*n+1){
+        if(vsr[i].ff==vsr[i-1].ff){
+            mp[vsr[i].ss+(n+2)]=ii;
         }else{
-            order[-vsr[i].ss+n]=mp[vsr[i].ss];
+            ii++;
+            mp[vsr[i].ss+(n+2)]=ii;
         }
     }
-    cout<<func(0, vs,0)<<endl;
+    // order.resize(2*n+1);
+    // for(int i = 0; i<=2*n; i++){
+    //     mp[vsr[i].ss]=i;
+    //     debug(vsr[i].ff)
+    //     debug(i)
+    // }
+    // for(int i = 0; i<=2*n; i++){
+    //     if(vsr[i].ss>0){
+    //         order[vsr[i].ss]=mp[vsr[i].ss];
+    //     }else{
+    //         order[-vsr[i].ss+n]=mp[vsr[i].ss];
+    //     }
+    // }
+    vss.resize(n+5);
+    rep(i,1,n+5){
+        vss[i]=i;
+    }
+    cout<<func(0, vss,0)<<endl;
 
 }
 

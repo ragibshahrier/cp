@@ -40,7 +40,6 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 1e5 + 7;
 
 
 //==============================CODE STARTS HERE==============================//
@@ -53,59 +52,59 @@ void preprocessing(){
 }
 
 void solve(){
-    int h,w,t;
-    cin>>h>>w>>t;
-    vvll mat(h+4, vll(w+4));
-    vvll matmin(h+4, vll(w+4));
-    ll hsh[N];
-    memset(hsh,0,sizeof(hsh));
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cin>>matmin[i][j];
-            mat[i][j] = inf;
+    int n;
+    cin>>n;
+
+    vector<vpi> pia(3, vpi(n));
+    vpi& a = pia[0];
+    vpi& b = pia[1];
+    vpi& c = pia[2];
+    rep(i,0,n){
+        cin>>a[i].ff;
+        a[i].ss = i;
+
+    }
+    rep(i,0,n){
+        cin>>b[i].ff;
+        b[i].ss = i;
+
+    }
+    rep(i,0,n){
+        cin>>c[i].ff;
+        c[i].ss = i;
+
+    }
+    sort(All(a),greater<pi>());
+    sort(All(b),greater<pi>());
+    sort(All(c),greater<pi>());
+
+    vector<vector<int>>perms = {{0,1,2}, {0,2,1}, {1,0,2}, {1,2,0}, {2,1,0}, {2,0,1}};
+    ll ans  = 0;
+    for(auto perm:perms){
+        int i,j;
+        ll tempans=0;
+        i = pia[perm[0]][0].ss;
+        tempans+=pia[perm[0]][0].ff;
+        int k=0;
+        while(pia[perm[1]][k].ss==i){
+            k++;
+            // continue;
         }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
+        j = pia[perm[1]][k].ss;
+        tempans+=pia[perm[1]][k].ff;
+        k=0;
+        while(pia[perm[2]][k].ss==i||pia[perm[2]][k].ss==j){
+            k++;
+            // continue;
         }
+        tempans+=pia[perm[2]][k].ff;
+        ans = max(ans,tempans);
+
     }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cout<<mat[i][j]<<gp;
-        }
-        cout<<endl;
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            ++hsh[mat[i][j]];
-        }
-        // cout<<endl;
-    }
-    ll ans = h*w;
-    rep(i,1,t+1){
-        ans-=hsh[i];
-        cout<<ans<<endl;
-    }
-   
-   
-    
-    
+    cout<<ans<<endl;
+
+
+
 
 }
 
@@ -113,7 +112,7 @@ int main(){
     fastcin();
 
     int t=1;
-    // cin>>t;
+    cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

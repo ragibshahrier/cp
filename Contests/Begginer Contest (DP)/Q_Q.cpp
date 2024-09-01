@@ -40,72 +40,63 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 1e5 + 7;
+const ll N = 1e5 + 50;
 
 
 //==============================CODE STARTS HERE==============================//
 
-
+int n;
+vi a;
+vll acc;
 
 
 void preprocessing(){
 
 }
 
+ll dpp[N];
+
+ll func(int n){
+    if(n<=0){
+        return 0;
+    }
+    if(dpp[n]!=-1)return dpp[n];
+    ll ans = 0;
+    int x = (a[n]+a[n-1])%10;
+    if(a[n]+a[n-1]>=10){
+        ans++;
+    }
+    ll y = func(n-2);
+    if(x+acc[n-1]%10>=10){
+        ans++;
+    }
+    ans+=y;
+    return dpp[n] = ans;
+
+}
+
 void solve(){
-    int h,w,t;
-    cin>>h>>w>>t;
-    vvll mat(h+4, vll(w+4));
-    vvll matmin(h+4, vll(w+4));
-    ll hsh[N];
-    memset(hsh,0,sizeof(hsh));
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cin>>matmin[i][j];
-            mat[i][j] = inf;
-        }
+    memset(dpp, -1, sizeof(dpp));
+    cin>> n;
+    a.resize(n);
+    acc.resize(n+1);
+    get_vector(a);
+    rep(i,1,n+1){
+        acc[i]=acc[i-1]+a[i-1];
     }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
+    int m;cin>>m;
+    while(m--){
+        int x,y;cin>>x>>y;
+        if(x==y){
+            cout<<0<<endl;continue;
         }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cout<<mat[i][j]<<gp;
-        }
-        cout<<endl;
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            ++hsh[mat[i][j]];
-        }
-        // cout<<endl;
-    }
-    ll ans = h*w;
-    rep(i,1,t+1){
-        ans-=hsh[i];
+        x--;y--;
+        ll ans = func(y)-func(x-1);
+        if((acc[y+1]-acc[x])%10 + acc[x]%10 >= 10)ans--;
         cout<<ans<<endl;
     }
-   
-   
-    
-    
+
+
 
 }
 

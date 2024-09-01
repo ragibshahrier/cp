@@ -40,7 +40,6 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 1e5 + 7;
 
 
 //==============================CODE STARTS HERE==============================//
@@ -53,59 +52,53 @@ void preprocessing(){
 }
 
 void solve(){
-    int h,w,t;
-    cin>>h>>w>>t;
-    vvll mat(h+4, vll(w+4));
-    vvll matmin(h+4, vll(w+4));
-    ll hsh[N];
-    memset(hsh,0,sizeof(hsh));
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cin>>matmin[i][j];
-            mat[i][j] = inf;
+    int n;cin>>n;
+    string s;cin>>s;
+    map<char,int>mp;
+    map<int,vector<char>>mp2;
+    int maxi = 0;
+    char maxc;
+    for(auto ch:s){
+        mp[ch]++;
+        
+    }
+    string ans;
+    while(ans.size()!=n){
+        for(auto it = mp.begin(); it!=mp.end(); ){
+            auto itt = it;
+            it++;
+            // mp2[el.ss].push_back(el.ff);
+            ans.push_back(itt->ff);
+            itt->ss--;
+            if(itt->ss==0)mp.erase(itt);
+
         }
+
     }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cout<<mat[i][j]<<gp;
-        }
-        cout<<endl;
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            ++hsh[mat[i][j]];
-        }
-        // cout<<endl;
-    }
-    ll ans = h*w;
-    rep(i,1,t+1){
-        ans-=hsh[i];
-        cout<<ans<<endl;
-    }
-   
-   
+    // for(auto el:mp){
+    //     rep(i,0,el.ss){
+    //         ans.push_back(el.ff);
+    //     }
+    // }
+    // for(auto el:mp){
+    //     rep(i,0,el.ss){
+    //         mp2[el.ss].push_back(el.ff);
+    //     }
+    // }
+    // for(auto& el:mp2){
+    //     while(el.ss.size()>0){
+    //         char x = el.ss.back();
+    //         el.ss.pop_back();
+    //         rep(i,0,el.ff){
+    //             ans.push_back(x);
+    //         }
+
+    //     }
+    // }
+
+
     
-    
+    cout<<ans<<endl;
 
 }
 
@@ -113,7 +106,7 @@ int main(){
     fastcin();
 
     int t=1;
-    // cin>>t;
+    cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

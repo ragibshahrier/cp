@@ -19,7 +19,7 @@ typedef long long ll;
 #define setbit(x,n) (x=(x|(1LL<<n)))
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -40,71 +40,54 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 1e5 + 7;
+const ll N = 2e5 + 7;
 
 
 //==============================CODE STARTS HERE==============================//
 
 
-
+vi lpf(N);
 
 void preprocessing(){
+    rep(i,2, N){
+        if(lpf[i]==0){
+            for(int j = i; j<N; j+=i){
+                lpf[j]=i;
+            }
 
+        }
+    }
 }
 
 void solve(){
-    int h,w,t;
-    cin>>h>>w>>t;
-    vvll mat(h+4, vll(w+4));
-    vvll matmin(h+4, vll(w+4));
-    ll hsh[N];
-    memset(hsh,0,sizeof(hsh));
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cin>>matmin[i][j];
-            mat[i][j] = inf;
+    int n;cin>>n;
+    vi a(n);
+    get_vector(a);
+    ll cntof0 = 0;
+    map<set<int>,ll>mp;
+    rep(i,0,n){
+        if(a[i]==0){cntof0++;continue;}
+        set<int>prs;
+        while(a[i]!=1){
+            auto it = prs.find(lpf[a[i]]);
+            if(it==prs.end())prs.insert(lpf[a[i]]);
+            else prs.erase(it);
+            a[i]/=lpf[a[i]];
         }
+        mp[prs]++;
+
+
+
     }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
+    ll ans = 0;
+    ans += cntof0*(n-cntof0) + cntof0*(cntof0-1)/2;
+    debug(1)
+    for(auto el:mp){
+        debugc(el.ff);
+        debug(el.ss);
+        ans += el.ss*(el.ss-1)/2;
     }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            mat[i][j] = max(matmin[i][j], min({mat[i-1][j], mat[i][j-1], mat[i][j]}));
-        }
-    }
-    for(int i=h; i>=1; i--){
-        for(int j=w; j>=1; j--){
-            mat[i][j] = max(matmin[i][j], min({mat[i+1][j], mat[i][j+1], mat[i][j]}));
-        }
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            cout<<mat[i][j]<<gp;
-        }
-        cout<<endl;
-    }
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            ++hsh[mat[i][j]];
-        }
-        // cout<<endl;
-    }
-    ll ans = h*w;
-    rep(i,1,t+1){
-        ans-=hsh[i];
-        cout<<ans<<endl;
-    }
-   
-   
-    
+    cout<<ans<<endl;
     
 
 }
