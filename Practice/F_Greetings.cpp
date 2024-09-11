@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+#define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -61,7 +61,29 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;
+    cin>>n;
+    map<ll,ll>mp;
+    // ordered_set s1;
+    // ordered_set s2;
+    rep(i,0,n){
+        ll x,y;
+        cin>>x>>y;
+        debug(x)
+        debug(y)
+        mp[5]++;
+        debugcc(mp)
+        // s2.insert(y);
+    }
+    // ll ans=0;
+    // debugc(s2)
+    // debugcc(mp)
+    // for(auto el:mp){
+    //     ans+=s2.order_of_key(el.ss)-s1.order_of_key(el.ss);
+    //     s1.insert(el.ss);
+    //     s2.erase(el.ss);
+    // }
+    // cout<<ans<<endl;
 
 }
 
