@@ -1,10 +1,5 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
 typedef long long ll;
  
 #define vi vector<int>
@@ -61,7 +56,13 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int a,b;
+    cin>>a>>b;
+    ll ans = INF;
+    for(ll i=a; i<=b; i++){
+        ans = min(ans,(i-a)+(b-i));
+    }
+    cout<<ans<<endl;
 
 }
 

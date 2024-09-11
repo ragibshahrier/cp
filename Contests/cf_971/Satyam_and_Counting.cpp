@@ -1,10 +1,5 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
 typedef long long ll;
  
 #define vi vector<int>
@@ -61,7 +56,37 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;
+    cin>>n;
+    multiset<int>up;
+    multiset<int>down;
+    rep(i,0,n){
+        int x,y;
+
+        cin>>x>>y;
+        if(y==0){
+            down.insert(x);
+        }else{
+            up.insert(x);
+        }
+    }
+
+    ll ans = 0;
+    for(auto x:down){
+        if(up.find(x)!=up.end()){
+            ans+=up.size()-1 + down.size()-1;
+        }
+        if(up.find(x+1)!=up.end() && up.find(x-1)!=up.end()){
+            ans++;
+        }
+    }
+    for(auto x:up){
+        
+        if(down.find(x+1)!=down.end() && down.find(x-1)!=down.end()){
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
 
 }
 

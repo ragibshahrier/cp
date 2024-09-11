@@ -1,10 +1,5 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +20,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -60,7 +55,48 @@ void preprocessing(){
 
 }
 
-void solve(){
+void solve(int cse){
+    vll a(12);
+    get_vector(a);
+    multiset<ll>ms(All(a));
+    vvll ans;
+    while(ms.size()>=3){
+        debugc(ms);
+        auto itf = ms.begin();
+        ll f = *itf;
+        itf++;
+        ms.erase(ms.find(f));
+        ll s = *itf;itf++;
+        ms.erase(ms.find(s));
+
+        auto it = ms.lower_bound(f+s);
+        if(it!=ms.begin()){
+            it--;
+            ll t = *it;
+            vll v = {f,s,t};
+            debugc(v);
+            ans.push_back(v);
+            ms.erase(it);
+            
+        }else{
+           
+            ms.insert(s);
+        }
+    }
+    cout<<"Case #"<<cse<<": "<<ans.size()<<endl;
+    if(ans.size()>0){
+
+        rep(i,0,ans.size()){
+            rep(j,0,2){
+                cout<<ans[i][j]<<gp;
+            }
+
+            cout<<ans[i][2]<<endl;
+        }
+
+    }
+
+
     
 
 }
@@ -71,6 +107,7 @@ int main(){
     int t=1;
     cin>>t;
     preprocessing();
-    while(t--)solve();
+    rep(i,1,t+1)solve(i);
+    // cout<<endl;
     return 0;
 }

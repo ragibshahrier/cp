@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -48,20 +48,42 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 2e5 + 7;
+const ll N = 5e6 + 7;
+// const ll N = 10;
 
 
 //==============================CODE STARTS HERE==============================//
 
-
-
+ll erat[N];
+vll acc(N);
 
 void preprocessing(){
+    memset(erat, 0, sizeof(erat));
+    rep(i,2,N){
+        if(erat[i]==0){
+            for(int j=i; j<N; j+=i){
+                int x = j;
+                while(x%i==0){
+                    erat[j]++;
+                    x/=i;
+                }
+            }
+        }
+
+    }
+    debugc(erat)
+    debug(erat[3])
+    rep(i,1,N){
+        acc[i] = acc[i-1]+erat[i];
+    }
+
 
 }
 
 void solve(){
-    
+    int x,y;
+    cin>>x>>y;
+    cout<<acc[x]-acc[y]<<endl;
 
 }
 

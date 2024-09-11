@@ -1,10 +1,5 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
 typedef long long ll;
  
 #define vi vector<int>
@@ -61,7 +56,15 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;
+    cin>>n;
+    vll a(n);
+    get_vector(a);
+    ll ans = 0;
+    rep(i,0,n){
+        ans = max(ans, a[i]-(i+1));
+    }
+    cout<<ans+1;
 
 }
 
@@ -69,7 +72,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

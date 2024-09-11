@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -60,8 +60,32 @@ void preprocessing(){
 
 }
 
-void solve(){
+void solve(int cs){
     
+    string s1,s2;
+    getline(cin>>ws,s1);
+    getline(cin>>ws,s2);
+    string s,t;
+    char x;
+    for(auto ch:s1){
+        if(ch!=' ')s.push_back((ch<='Z')?ch:ch-32);
+    }
+    debug(s);
+    sort(All(s));
+    debug(s);
+    for(auto ch:s2){
+        if(ch!=' ')t.push_back((ch<='Z')?ch:ch-32);
+    }
+    sort(All(t));
+    debug(t);
+    if(s==t){
+        cout<<"Case "<<cs<<": "<<"Yes"<<endl;
+    }else{
+        cout<<"Case "<<cs<<": "<<"No"<<endl;
+
+    }
+
+
 
 }
 
@@ -71,6 +95,6 @@ int main(){
     int t=1;
     cin>>t;
     preprocessing();
-    while(t--)solve();
+    rep(i,1,t+1)solve(i);
     return 0;
 }

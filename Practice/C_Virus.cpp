@@ -1,10 +1,5 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +20,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -61,7 +56,48 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n,m;
+    cin>>n>>m;
+    vll a(m);
+    get_vector(a);
+    sort(All(a));
+    vll diff(m);
+    rep(i,0,m){
+        if(i==0){
+            diff[i] = a[0]+n-a[m-1]-1;
+        }
+        else{
+            diff[i]=a[i]-a[i-1]-1;
+
+        }
+
+    }
+    sort(All(diff),greater<ll>());
+    debugc(diff)
+    int  i =0;
+    int k = 0;
+    ll ans = 0;
+    while(i<m){
+        if(diff[i]-2*k>0){
+            if(diff[i]-2*k==1){
+                diff[i]=diff[i]-2*k;
+                k++;
+            }else{
+                diff[i]= diff[i]-2*k-1;
+                k+=2;
+            }
+            ans += diff[i];
+        }else{
+            break;
+        }
+        i++;
+
+    }
+    ans = n-ans;
+    cout<<ans<<endl;
+
+
+
 
 }
 

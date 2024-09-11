@@ -1,10 +1,5 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
-// #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +20,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -61,7 +56,51 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;
+    cin>>n;
+    vvi mat(n,vi(n));
+    rep(i,0,n){
+        rep(j,0,n){
+            char x;
+            cin>>x;
+
+            mat[i][j] = x-'0';
+        }
+    }
+    ll ans = 0;
+    rep(i,0,n){
+        rep(j,0,n){
+            if(mat[i][j]<2){
+                if((n&1)&&(i==j))continue;
+                int s=0;
+                debug(i)
+                debug(j)
+                int a = i, b=j, aa= a;
+                s+=mat[a][b];
+                mat[a][b]=2;
+                
+                a=b;b=n-1-aa;aa=a;
+                s+=mat[a][b];
+                mat[a][b]=2;
+                
+                a=b;b=n-1-aa;aa=a;
+                s+=mat[a][b];
+                mat[a][b]=2;
+
+                a=b;b=n-1-aa;aa=a;
+                s+=mat[a][b];
+                mat[a][b]=2;
+
+                debug(s)
+                ans += min(4-s,s);
+
+            }
+
+
+        }
+    }
+    cout<<ans<<endl;
+
 
 }
 
