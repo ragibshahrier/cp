@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,19 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    string s;cin>>s;
+    rep(i,0,s.length()){
+        s[i]=tolower(s[i]);
+    }
+    vector<char>vow  = {'a','e','i','o','u','y'};
+    string ans = "";
+    rep(i,0,s.length()){
+        if(find(All(vow),s[i])== vow.end()){
+            ans.push_back('.');
+            ans.push_back(s[i]);
+        }
+    }
+    cout<<ans;
 
 }
 
@@ -69,7 +81,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

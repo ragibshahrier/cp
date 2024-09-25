@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -60,8 +60,53 @@ void preprocessing(){
 
 }
 
+
+ 
+
 void solve(){
+    int n,d,k;
+    cin>>n>>d>>k;
+    vll a(n);
+    map<int,int>mps,mpe;
     
+    rep(i,0,k){
+        int x,y;
+        cin>>x>>y;
+        mps[x-1]++;mpe[y-1]++;
+        
+    }
+    int start = 0;
+    rep(i,0,d){
+        start+=mps[i];
+    }
+    
+    debugc(a)
+
+    
+
+
+    
+    ll sb = start,sm = start;
+    ll curr = start;
+    int stb = 0, stm = 0;
+    rep(i,1,n-d+1){
+        debug(stb)
+        debug(stm)
+        curr = curr + mps[i+d-1] - mpe[i-1];
+
+        if(curr>sb){
+            sb = curr;
+            stb = i;
+        }
+        if(curr<sm){
+            sm = curr;
+            stm = i;
+        }
+        debug(stb)
+        debug(stm)
+    }
+    cout<<stb+1<<gp<<stm+1<<endl;
+
 
 }
 

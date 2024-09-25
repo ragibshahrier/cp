@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,45 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    string s;
+    cin>>s;
+    int op = 0;
+    vi ans;
+    rep(i,0,s.length()){
+        if(s[i]=='('){
+            op++;
+        }else if(s[i]==')'){
+            if(op>0)op--;
+            else if(ans.size()>0 && ans[ans.size()-1]>1){
+                ans[ans.size()-1]--;
+            }
+            else{
+                cout<<-1;return;
+            }
+        }else{
+            if(ans.size()>0 && ans[ans.size()-1]>1){
+                ans.push_back(ans[ans.size()-1]-1);
+                ans[ans.size()-2]=1;
+                ans[ans.size()-1]+=op;
+                op=0;
+                
+            }else if(op>0){
+                ans.push_back(op);
+                op = 0;
+            }
+            
+            else{
+                cout<<-1;return;
+
+            }
+        }
+    }
+    if(op>0){
+        cout<<-1;return;
+    }
+    for(auto el:ans){
+        cout<<el<<endl;
+    }
 
 }
 
@@ -69,7 +107,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

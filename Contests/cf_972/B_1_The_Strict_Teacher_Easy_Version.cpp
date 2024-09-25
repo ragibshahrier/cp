@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,32 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    ll n,m,q;
+    cin>>n>>m>>q;
+    vll mm(m);
+    get_vector(mm);
+    sort(All(mm));
+    debugc(mm)
+    while(q--){
+        ll ans = 0;
+        ll x;
+        cin>>x;
+        ll xx = *lower_bound(All(mm), x);
+        ll yy = *(lower_bound(All(mm), x)+1);
+        if(mm[0]<x && x<mm[1]){
+            if((mm[1]-mm[0])&1)ans = (mm[1]+mm[0])/2 - mm[0];
+            else ans = (mm[1]+mm[0])/2 - mm[0];
+
+        }
+        else if(x<mm[0]){
+            ans = mm[0]-1;
+        }else{
+            ans = n-mm[1];
+        }
+        cout<<ans<<endl;
+
+    }
+
 
 }
 

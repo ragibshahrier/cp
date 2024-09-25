@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -60,8 +60,34 @@ void preprocessing(){
 
 }
 
+int cl(int x, int y){
+    return x/y + (x%y!=0);
+}
+
 void solve(){
-    
+    int n,k;
+    cin>>n>>k;
+    vi a(n);
+    int cnt1 = 0;
+    rep(i,0,n){
+        if(cnt1<cl((i+1),k)){
+            a[i]=1;
+            cnt1++;
+        }
+    }
+    cnt1=0;
+    for(int i = n-1; i>=0; i--){
+        if(a[i])cnt1++;
+        if(cnt1<cl(n-i,k)){
+            cnt1++;
+            a[i]=1;
+        }
+    }
+    cnt1 = 0;
+    rep(i,0,n){
+        if(a[i])cnt1++;
+    }
+    cout<<cnt1<<endl;
 
 }
 

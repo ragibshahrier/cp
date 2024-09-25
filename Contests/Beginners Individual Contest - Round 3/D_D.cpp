@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+#define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -48,20 +48,50 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+const ll N = 1e6 + 7;
+// const ll N = 20 + 7;
+
 
 //==============================CODE STARTS HERE==============================//
 
 
+ll hsh[N][10];
 
+int func(int x){
+    if(x<=9){
+        return x;
+    }
+    int y = 1;
+    while(x>0){
+        if(x%10!=0)y*= x%10;
+        x/=10;
+    }
+    return func(y);
+}
 
 void preprocessing(){
-
+    rep(j,0,10){
+        hsh[0][j]=0;
+    }
+    rep(i,1,N){
+        rep(j,0,10){
+            hsh[i][j] = hsh[i-1][j];
+        }
+        ++hsh[i][func(i)];
+    }
 }
 
 void solve(){
-    
+    // rep(i,0,N){
+    //     rep(j,0,10){
+    //         cout<<hsh[i][j]<<gp;
+    //     }
+    //     cout<<endl;
+    // }
+    // debug(func(10))
+    int l,r,k;
+    cin>>l>>r>>k;
+    cout<<hsh[r][k]-hsh[l-1][k]<<endl;
 
 }
 

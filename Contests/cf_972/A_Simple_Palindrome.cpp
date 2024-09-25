@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,21 @@ void preprocessing(){
 }
 
 void solve(){
+    int n;
+    cin>>n;
+    int x = n/5;
+    int y = n%5;
+    char a[5]= {'a','e','i', 'o', 'u'};
+    rep(i,0,5){
+        if(i<y){
+            rep(j,0,x+1)cout<<a[i];
+        }else{
+            rep(j,0,x)cout<<a[i];
+
+        }
     
+    }
+    cout<<endl;
 
 }
 

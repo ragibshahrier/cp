@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -49,7 +49,8 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+const ll modinv2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +62,30 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    ll a,b;
+    cin>>a>>b;
+    ll ans = 0;
+    for(ll i = 1; i<b; i++){
+        ll f = b*i+i;
+        ll d = b*i;
+        ll tempsum;
+        // else tempsum = ((a/2)%M)*(((2*f + (a-1) * d))%M);
+        tempsum = (((a%M)*(((((2*f)%M + ((a-1) * ((d)%M))%M))%M)%M))%M * 500000004)%M;
+        // if(tempsum<0){
+        //     cout<<i<<endl;
+        // }
+        tempsum%=M;
+        debug(tempsum)
+        debug(f)
+        debug(i)
+        debug(d)
+        ans += tempsum;
+        ans%=M;
+    }
+    ans%=M;
+    ans+=M;
+    ans%=M;
+    cout<<ans;
 
 }
 
@@ -69,7 +93,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

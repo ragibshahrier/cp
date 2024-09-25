@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,8 +61,42 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    ll n,g,b;
+    cin>>n>>g>>b;
+    ll nn= (n+1)/2;
+    // ll tb = 0;
+    // ll ans = (nn/g) * (g+b);
+    // if(nn/g>0){
+    //     tb = (nn/g -1)*b;
+    //     ans-=b;
+    // }
+    // if(nn%g !=0){
+    //     ans += b;
+    //     tb+=b;
+    //     ans += (nn%g);
+    // }
+    // if(tb<(n-nn)){
+    //     ans+= (n-nn)-tb;
+    // }
+    // // while(n>0)
+    ll ans=  0;
+    if(nn%g == 0){
+        ans = (nn/g - 1)*(g+b)+g;
+        if(ans-nn<(n-nn)){
+            ans += (n-nn)-(ans-nn);
+        }
+    }else{
+        ans = nn/g * (g+b) + (nn%g);
+        if(ans-nn<(n-nn)){
+            ans += (n-nn)-(ans-nn);
+        }
+    }
+    cout<<ans<<endl;
 
+
+
+
+    // cout<<ans<<endl;
 }
 
 int main(){

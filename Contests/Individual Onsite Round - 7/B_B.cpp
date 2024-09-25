@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,36 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;
+    cin>>n;
+    vector<pll> l(n);
+    rep(i,0,n){
+        cin>>l[i].ff;
+        cin>>l[i].ss;
+        l[i].ss*=-1;
+
+    }
+    sort(All(l));
+    int va = 1;
+    int cnt = 0;
+    ll ans = 0;
+    rep(i,0,n){
+        if(l[i].ff<va)continue;
+        if(va<l[i].ff)cnt=0;
+        va = l[i].ff;
+
+        if(cnt<va){
+            ans+=(-l[i].ss);
+            cnt++;
+        }
+        if(cnt == va){
+            cnt = 0;
+            va++;
+        }
+        
+    }
+    cout<<ans<<endl;
+
 
 }
 

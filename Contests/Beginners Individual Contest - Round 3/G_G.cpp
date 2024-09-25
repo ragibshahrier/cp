@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -47,9 +47,9 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 
 const ll INF = 2e18;
 const ll inf = INT_MAX;
-const ll M = 1e9 + 7;
+const ll M = 998244353;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,41 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int x,y;
+    cin>>x>>y;
+    string a,b;
+    cin>>a>>b;
+    vll vv(max(x,y));
+    vll vv2(max(x,y));
+    int m=0,n=0;
+    rep(i,0,vv.size()){
+        if(vv.size()-i<=x){
+            vv[i]=a[m]-'0';
+            m++;
+        }
+        if(vv.size()-i<=y){
+            vv2[i] = b[n]-'0';
+            n++;
+        }
+    }
+    rep(i,1,vv2.size()){
+        vv2[i] = vv2[i-1]+vv2[i];
+    }
+    ll k = 1;
+    ll ans = 0;
+    for(int i = vv.size()-1; i>=0; i--){
+        if(vv[i]==1){
+            ans+=(vv2[i]*k)%M;
+            ans%=M;
+        }
+        k<<=1;
+        k%=M;
+
+    }
+    ans%=M;
+    ans+=M;
+    ans%=M;
+    cout<<ans;
 
 }
 
@@ -69,7 +103,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

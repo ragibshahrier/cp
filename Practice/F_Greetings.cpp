@@ -2,7 +2,7 @@
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+#define ordered_set tree<ll, null_type,less<ll>, rb_tree_tag,tree_order_statistics_node_update>
 using namespace __gnu_pbds;
  
 typedef long long ll;
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -65,25 +65,29 @@ void solve(){
     cin>>n;
     map<ll,ll>mp;
     // ordered_set s1;
-    // ordered_set s2;
+    ordered_set s2;
     rep(i,0,n){
         ll x,y;
         cin>>x>>y;
         debug(x)
         debug(y)
-        mp[5]++;
+        mp[x]=y;
         debugcc(mp)
-        // s2.insert(y);
+        s2.insert(y);
     }
-    // ll ans=0;
-    // debugc(s2)
-    // debugcc(mp)
-    // for(auto el:mp){
-    //     ans+=s2.order_of_key(el.ss)-s1.order_of_key(el.ss);
-    //     s1.insert(el.ss);
-    //     s2.erase(el.ss);
-    // }
-    // cout<<ans<<endl;
+    ll ans=0;
+    debugc(s2)
+    debugcc(mp)
+    for(auto el:mp){
+        // debug(s1.order_of_key(el.ss))
+        debug(s2.order_of_key(el.ss))
+        // ans+=s2.order_of_key(el.ss)-s1.order_of_key(el.ss);
+        ans+=s2.order_of_key(el.ss);
+        debug(ans)
+        // s1.insert(el.ss);
+        s2.erase(el.ss);
+    }
+    cout<<ans<<endl;
 
 }
 

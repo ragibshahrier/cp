@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -49,20 +49,49 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
+vector<int>dept(101);
+vector<bool>vis(101);
 
-
+void dfs(int strt, int en, int depth, vector<int>&a){
+    int root = max_element(a.begin()+strt, a.begin()+en) - a.begin();
+    // if(vis[root]) return;
+    
+    dept[root] = depth;
+    vis[root] = true;
+    if(root != strt){
+        dfs(strt, root, depth+1, a);
+    }
+    if(root != en-1){
+        dfs(root+1, en, depth+1, a);
+    }
+}
 
 void preprocessing(){
 
 }
 
 void solve(){
-    
+    // cout<<1;
+    int n;
+    cin>>n;
+    for(int i = 0; i<n; i++){
+        dept[i] = 0;
+        vis[i] = false;
+    }
+    vector<int>a(n);
+    for(int i = 0; i<n; i++){
+        cin>>a[i];
+    }
+    dfs(0, n, 0, a);
 
+    for(int i = 0; i<n; i++){
+        cout<<dept[i]<<" ";
+    }
+    cout<<endl;
 }
 
 int main(){
@@ -71,6 +100,8 @@ int main(){
     int t=1;
     cin>>t;
     preprocessing();
-    while(t--)solve();
+    while(t--){
+        solve();
+    }
     return 0;
 }

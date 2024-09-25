@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -59,9 +59,42 @@ const ll modinvof2 = 500000004;
 void preprocessing(){
 
 }
+vpi ans;
 
 void solve(){
-    
+    int n;cin>>n;
+    vi a(n),b(n);
+    get_vector(a);
+    get_vector(b);
+    int i = 0, j= 0;
+    // while(i<n){
+    //     if(a[i]==b[i]){
+    //         i++;
+    //     }else{
+    //         int j = i;
+    //         while(a[j]!=b[j]){
+    //             swap(b[j],b[j+1]);
+    //             ans.push_back({j+1,j+2});
+    //             j++;
+    //         }
+    //     }
+    // }
+    for(i=n-1; i>=0; i--){
+        if(a[i]==b[i])continue;
+        j = i;
+        while(b[j]!=a[i]){
+            j--;
+        }
+        rep(k,j,i){
+            swap(b[k],b[k+1]);
+            ans.push_back({k+1,k+2});
+        }
+        debugc(b)
+    }
+    cout<<ans.size()<<endl;
+    rep(i,0,ans.size()){
+        cout<<ans[i].ff<<gp<<ans[i].ss<<endl;
+    }
 
 }
 
@@ -69,7 +102,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;

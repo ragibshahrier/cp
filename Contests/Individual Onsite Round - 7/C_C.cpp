@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,44 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;
+    cin>>n;
+    vi a(n);
+    get_vector(a);
+    vi prs;
+    int cool = 0;
+    int cnt1 = 0;
+    rep(i,0,n){
+        if(a[i]==0){
+            prs.push_back(cnt1);
+            if(cool == 1){
+                cool = 0;
+                cnt1 = 0;
+            }
+        }else{
+            cnt1++;
+            cool = 1;
+
+        }
+    }
+    if(cool == 1){
+        cout<<"NO"<<endl;return;
+    }
+    debugc(prs)
+    reverse(All(prs));
+    vi ans;
+    rep(i,0,prs.size()){
+        rep(j,0,prs[i]){
+            ans.push_back(0);
+        }
+        ans.push_back(prs[i]);
+        debug(prs[i])
+        debug(i)
+        debugc(ans)
+    }
+    // reverse(All(ans));
+    cout<<"YES"<<endl;
+    put_vector(ans);
 
 }
 

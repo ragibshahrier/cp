@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -25,7 +25,7 @@ typedef long long ll;
 #define resetbit(x,n) (x=(x&(~(1LL<<n))))
 #define pow2(i) (1LL<<i)
 
-//#define DEBG
+// #define DEBG
 
 #define debug(n)
 #define debugc(a)
@@ -49,7 +49,7 @@ const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
 const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+
 
 //==============================CODE STARTS HERE==============================//
 
@@ -61,7 +61,52 @@ void preprocessing(){
 }
 
 void solve(){
-    
+    int n;cin>>n;
+    vll a(n);
+    get_vector(a);
+    multiset<ll> ms(All(a));
+    ll ans=0;
+    ll x = 0;
+    while(!ms.empty()){
+        auto itb = ms.begin();
+        auto ite = ms.end();ite--;
+        if(itb!=ite){
+            if(x<*ite){
+                ll temp = min(*itb, *ite-x);
+                if(temp == *itb){
+                    x+=temp;
+                    ms.erase(itb);
+                }else{
+                    ll y = *itb -temp;
+                    x+=temp;
+                    ms.erase(itb);
+                    ms.insert(y);
+                }
+                ans+=temp;
+
+            }else{
+                ms.erase(ite);
+                ans++;
+                x=0;
+            }
+        }else{
+            ll y = *itb;
+            debug(y)
+            debug(x)
+            debug(ans)
+            ans+= (y-x)/2;
+            ll temp = x;
+            x+= (y-temp)/2;
+            y-= (y-temp)/2;
+            if(x>0)ans++;
+            y-=x;
+            debug(ans)
+            ans+=y;
+            // if(y-(y-x)/2 !=0)
+            break;
+        }
+    }
+    cout<<ans<<endl;
 
 }
 

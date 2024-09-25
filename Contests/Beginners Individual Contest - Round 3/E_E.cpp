@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp> 
+// #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-// using namespace __gnu_pbds; 
-
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
 typedef long long ll;
  
 #define vi vector<int>
@@ -48,20 +48,55 @@ template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
 const ll INF = 2e18;
 const ll inf = INT_MAX;
 const ll M = 1e9 + 7;
-const ll N = 2e5 + 7;
-const ll modinvof2 = 500000004;
+const ll N = 60;
+
 
 //==============================CODE STARTS HERE==============================//
 
-
-
+int n;
+vi a;
+vector<vector<pll>> dpp(N, vector<pll>(2, {-1,-1}));
 
 void preprocessing(){
 
 }
 
+pll func(int i, int d){
+    if(i==n-1){
+        if(d==1){
+            return {0,a[i]};
+        }
+        else{
+            return {a[i], 0};
+        }
+    }
+    if(dpp[i][d].ss!=-1){
+        return dpp[i][d];
+    }
+    pll aa = func(i+1, 0);
+    pll bb = func(i+1, 1);
+    if(d==1){
+        if(aa.ss+a[i] > bb.ss){
+            return dpp[i][d] = {aa.ff, aa.ss+a[i]};
+        }else{
+            return dpp[i][d] ={bb.ff+a[i], bb.ss};
+        }
+    }else{
+        if(bb.ff+a[i]>aa.ff){
+            return dpp[i][d] ={bb.ff+a[i], bb.ss};
+        }else{
+            return dpp[i][d] ={aa.ff,aa.ss+a[i]};
+        }
+    }
+}
+
 void solve(){
-    
+    cin>>n;
+    a.resize(n);
+    get_vector(a);
+    pll pp = func(0,1);
+    cout<<pp.ff<<gp<<pp.ss;
+
 
 }
 
@@ -69,7 +104,7 @@ int main(){
     fastcin();
 
     int t=1;
-    cin>>t;
+    // cin>>t;
     preprocessing();
     while(t--)solve();
     return 0;
