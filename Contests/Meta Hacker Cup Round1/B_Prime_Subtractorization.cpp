@@ -1,0 +1,140 @@
+#include<bits/stdc++.h>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp> 
+using namespace std;
+// #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+// using namespace __gnu_pbds;
+ 
+typedef long long ll;
+ 
+#define vi vector<int>
+#define vvi vector<vi>
+#define vll vector<ll>
+#define vvll vector<vll>
+#define pi pair<int,int>
+#define pll pair<ll,ll>
+#define ff first
+#define ss second
+#define vpi vector<pair<int,int>>
+#define rep(ii,st, n) for(int ii=st; ii<n; ii++)
+#define gp " "
+
+//bit_manupulation
+#define checkbit(x,n) (x&(1LL<<n))
+#define setbit(x,n) (x=(x|(1LL<<n)))
+#define resetbit(x,n) (x=(x&(~(1LL<<n))))
+#define pow2(i) (1LL<<i)
+
+// #define DEBG
+
+#define debug(n)
+#define debugc(a)
+#define debugcc(a)
+#ifdef DEBG
+#define debug(n) cout<<__LINE__<<gp<<#n<<gp<<n<<endl;
+#define debugc(a) cout<<__LINE__<<gp<<#a<<gp<<'['<<gp;for(auto el:a){cout<<el<<gp;}cout<<']'<<endl;
+#define debugcc(a) cout<<__LINE__<<gp<<#a<<gp<<'['<<gp;for(auto el:a){cout<<'{'<<gp<<el.ff<<','<<el.ss<<gp<<'}'<<gp;}cout<<']'<<endl;
+#endif
+
+#define fastcin() ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define endl '\n'
+
+
+#define All(a) a.begin(),a.end()
+template<typename T> void get_vector(T&a){for(auto&e:a)cin>>e;}
+template<typename T> void put_vector(T a){for(auto e:a)cout<<e<<" ";cout<<endl;}
+
+
+const ll INF = 2e18;
+const ll inf = INT_MAX;
+const ll M = 1e9 + 7;
+const ll N = 1e7 + 7;
+// const ll N = 15;
+const ll modinvof2 = 500000004;
+
+
+//==============================CODE STARTS HERE==============================//
+
+
+// vll primes(N);
+vll erat(N);
+vll hsh(N);
+vll pref(N);
+// list<ll> li;
+
+void preprocessing(){
+    // li.push_back(1);
+    hsh[5]++;
+    rep(i,2,N){
+        // li.push_back(i);
+        if(erat[i]==0){
+            // primes.push_back(i);
+            
+            for(int j = i+i; j<N; j+=i){
+                erat[j] = 1;
+            }
+
+        }
+        
+    }
+    rep(i,2,N){
+        
+        if(erat[i]==0){
+            // primes.push_back(i);
+            
+            if(erat[i+2]==0){
+                hsh[i+2]++;
+            }
+
+        }
+        
+    }
+    // rep(i,2,N){
+    //     if(erat[i]==0){
+    //         auto it = li.begin();
+    //         for(it; it!=li.end();){
+    //             debug(i)
+    //             auto itt = it;
+    //             it++;
+    //             debug(*itt)
+    //             if(erat[i+(*itt)]==0){
+    //                 hsh[i+(*itt)]++;
+    //                 li.erase(itt);
+    //             }
+
+    //         }
+
+    //     }
+    // }
+    rep(i,1,N){
+        pref[i] = hsh[i]+pref[i-1];
+    }
+    // rep(i,1,20){
+    //     cout<<pref[i]<<gp;
+    // }
+    // cout<<endl;
+
+}
+
+void solve(int cse){
+    int n;
+    cin>>n;
+    
+    cout<<"Case #"<<cse<<": ";
+    cout<<pref[n]<<endl;
+
+}
+
+int main(){
+    fastcin();
+    #ifndef ONLINE_JUDGE
+    freopen("prime_subtractorization_input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+
+    int t=1;
+    cin>>t;
+    preprocessing();
+    rep(i,0,t)solve(i+1);
+    return 0;
+}
